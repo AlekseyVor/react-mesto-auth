@@ -1,0 +1,21 @@
+.places {
+    padding: 0 19px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 282px);
+    row-gap: 20px;
+    column-gap: 17px;
+    justify-content: center;
+}
+
+@media (min-width: 768px) {
+    .places {
+        padding: 0;
+        max-width: 768px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .places {
+        max-width: 880px;
+    }
+}

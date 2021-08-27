@@ -1,0 +1,27 @@
+.popup__overlay_photo {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    transition: visibility 0.8s, opacity 0.8s ease-in-out;
+    opacity: 0;
+}
+
+.popup__overlay_photo::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0.9;
+    z-index: -1;
+    background-color: black;
+}

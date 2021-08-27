@@ -1,0 +1,10 @@
+.place__image {
+    width: 282px;
+    height: 282px;
+    object-fit: cover;
+}
+
+
+.place__image:hover {
+    cursor: pointer;
+}

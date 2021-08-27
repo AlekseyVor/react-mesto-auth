@@ -1,0 +1,29 @@
+.profile__avatar-edit {
+    padding: 0;
+    margin: 0;
+    background-color: black;
+    outline: none;
+    border: none;
+    border-radius: 50%;
+    z-index: 1;
+    position: relative;
+}
+
+
+.profile__avatar-edit::after {
+    background-image: url(../../../images/vector.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    background-color: black;
+}
+
+
+
+

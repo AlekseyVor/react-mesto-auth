@@ -1,0 +1,25 @@
+.profile__place-edit {
+    border: 2px solid #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 2px;
+    width: 282px;
+    padding: 25px 0;
+    background-color: #000000;
+    background-image: url(../../../images/add-button.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    outline: none;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.profile__place-edit:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+@media (min-width: 1024px) {
+    .profile__place-edit {
+        width: 150px;
+        margin-left: auto;
+    }
+}

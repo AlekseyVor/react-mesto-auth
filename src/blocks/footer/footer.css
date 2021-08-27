@@ -1,0 +1,17 @@
+.footer {
+    min-width: 320px;
+    padding: 48px 0 36px;
+}
+
+@media (min-width: 768px) {
+    .footer {
+    min-width: 768px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .footer {
+    min-width: 880px;
+    padding: 66px 0 60px;
+    }
+}
