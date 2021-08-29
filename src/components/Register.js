@@ -23,19 +23,19 @@ export default function Register(props) {
             password: password
         })
 
-    } 
+    }
 
 
     return (
-        
+
         <div className="register">
-        <h2 className="register__title">Регистрация</h2>
-        <form className="form register__form" onSubmit={handleSubmit}>
-        <input value={email} onChange={handleChangeEmail} type="e-mail" minLength="2" maxLength="40" className="register__input register__input_email" placeholder="Email" id="email" required/>
-        <input value={password} onChange={handleChangePassword} type="password" minLength="2" maxLength="40" className="register__input register__input_password" placeholder="Пароль" id="password" required/>
-        <button type="submit" className="register__button">Зарегистрироваться</button>
-        </form>
-        <p className="register__text">Уже зарегистрированы? <span><Link to="/sign-in" className="register__link">Войти</Link></span></p>
+            <h2 className="register__title">Регистрация</h2>
+            <form className="form register__form" onSubmit={handleSubmit}>
+                <input value={email} onChange={handleChangeEmail} type="e-mail" minLength="2" maxLength="40" className="register__input register__input_email" placeholder="Email" id="email" required />
+                <input value={password} onChange={handleChangePassword} type="password" minLength="2" maxLength="40" className="register__input register__input_password" placeholder="Пароль" id="password" required />
+                <button type="submit" className="register__button">Зарегистрироваться</button>
+            </form>
+            <p className="register__text">Уже зарегистрированы? <span><Link to="/sign-in" className="register__link">Войти</Link></span></p>
         </div>
     )
-    }
+}
