@@ -10,7 +10,7 @@ import api from '../utils/api.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import React from 'react';
 import DeletePopup from './DeletePopup';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
@@ -158,11 +158,14 @@ function handleExit() {
     <CurrentUserContext.Provider value={currentUser}>
     <Header isLoggedIn={loggedIn} email={userEmail} onExit={handleExit}/>
     <Switch>
-    <Route path="/sign-in">
+    <Route exact path="/sign-in">
     <Login onLogin={handleLogin}/>
     </Route>
-    <Route path="/sign-up">
+    <Route exact path="/sign-up">
     <Register onRegister={handleRegister}/>
+    </Route>
+    <Route path="/mesto-react">
+    <Redirect to="/"/>
     </Route>
     <ProtectedRoute exact path="/" isLoadingRes={isLoading} isLoggedIn={loggedIn} >
     <Main cards={cards} onCardLike={handleCardLike} onCardDelete={handleCardDeleteClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick}/>
