@@ -1,0 +1,20 @@
+.register__input {
+    font-family: Inter, Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 0;
+    padding-bottom: 13px;
+    margin-bottom: 30px;
+    border: 0;
+    border-bottom: 1px solid #CCCCCC;
+    outline: none;
+    min-width: 358px;
+    color: #CCCCCC;
+    background-color: black;
+}
+
+.register__input:last-child {
+    margin-bottom: 0;
+}
