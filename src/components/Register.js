@@ -1,10 +1,8 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import * as auth from '../auth.js';
+import { Link } from 'react-router-dom';
 
 export default function Register(props) {
 
-    const history = useHistory();
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
 
@@ -20,18 +18,11 @@ export default function Register(props) {
         // Запрещаем браузеру переходить по адресу формы
         e.preventDefault();
         // Передаём значения управляемых компонентов во внешний обработчик
-        auth.register(password, email)
-        .then((res) => {
-            if(!res.hasOwnProperty('error')){
-                history.push('/sign-in');
-                props.onRegister(false);
-            } else {
-                props.onRegister(true);
-            }
+        props.onRegister({
+            email: email,
+            password: password
         })
-        .catch((res) => {
-            console.log(res);
-        })
+
     } 
 
 

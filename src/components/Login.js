@@ -1,10 +1,8 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import * as auth from '../auth.js';
 
 export default function Login(props) {
     
-    const history = useHistory();
+
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
 
@@ -20,16 +18,10 @@ export default function Login(props) {
         // Запрещаем браузеру переходить по адресу формы
         e.preventDefault();
         // Передаём значения управляемых компонентов во внешний обработчик
-        auth.authorize(password, email)
-        .then((data) => {
-            if(data.hasOwnProperty('token')) {
-                localStorage.setItem('jwt', data.token);
-                props.onLogin(true);
-                history.push('/');
-            }
-            }
-          )
-          .catch(err => console.log(err));
+        props.onLogin({
+            email: email,
+            password: password
+        })
     } 
     
     
