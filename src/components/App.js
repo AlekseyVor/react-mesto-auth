@@ -114,14 +114,20 @@ function App() {
     api.updateLike(card._id, !isLiked)
       .then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-      });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   function handleCardDelete(card) {
     api.deleteCard(card._id)
       .then(() => {
         setCards((state) => state.filter((item) => item._id !== card._id))
-      });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   function handleAddPlace(card) {
@@ -136,19 +142,15 @@ function App() {
   function handleRegister(data) {
 
     auth.register(data.password, data.email)
-      .then((res) => {
-        if (!res.hasOwnProperty('error')) {
-          history.push('/sign-in');
-          setIsRegisterOk(false);
-          setIsRegisterPopupOpen(true);
-        } else {
-          setIsRegisterOk(true);
-          setIsRegisterPopupOpen(true);
-        }
+      .then(() => {
+        history.push('/sign-in');
+        setIsRegisterOk(false);
       })
-      .catch((res) => {
-        console.log(res);
+      .catch((err) => {
+        setIsRegisterOk(true)
+        console.log(err);
       })
+      .finally(setIsRegisterPopupOpen(true))
 
   }
 
@@ -156,7 +158,6 @@ function App() {
     auth.authorize(data.password, data.email)
       .then((res) => {
         if (res.hasOwnProperty('token')) {
-
           localStorage.setItem('jwt', res.token);
           setUserEmail(data.email);
           setLoggedIn(true);
