@@ -9,7 +9,6 @@ export default function Card(props) {
     const cardLikeButtonClassName = (`place__like ${isLiked ? 'place__like_active' : ''}`);
 
     function handleClick() {
-
         props.onCardClick(props.card);
     }
     function handleLikeClick() {
@@ -17,7 +16,6 @@ export default function Card(props) {
     }
 
     function handleDeleteClick(e) {
-        console.log(e);
         props.onCardDelete(props.card)
     }
 

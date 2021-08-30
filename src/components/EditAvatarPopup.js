@@ -1,4 +1,5 @@
 import React from 'react';
+import PopupWithForm from './PopupWithForm';
 
 export default function EditAvatarPopup(props) {
 
@@ -17,16 +18,11 @@ export default function EditAvatarPopup(props) {
     }
 
     return (
-        <div className={`popup__overlay ${props.isOpen ? 'popup_opened' : ''}`} id="avatar">
-            <div className="popup__container popup__container_theme_white">
-                <h2 className="popup__title">Обновить аватар</h2>
-                <form className="form avatar-editor" name="avatar-editor" onSubmit={handleSubmit}>
-                    <input ref={avatarRef} type="url" className="popup__input popup__input_url" placeholder="Ссылка на картинку" id="url-avatar" required />
-                    <span className="popup__input-error" id="url-avatar-error"></span>
-                    <button type="submit" className="popup__submit">Сохранить</button>
-                </form>
-                <button type="button" className="popup__close" onClick={props.onClose}></button>
-            </div>
-        </div>
+
+        <PopupWithForm onSubmit={handleSubmit} onClose={props.onClose} isOpen={props.isOpen} id="avatar" title="Обновить аватар" name="avatar-editor" buttonText="Сохранить">
+            <input ref={avatarRef} type="url" className="popup__input popup__input_url" placeholder="Ссылка на картинку" id="url-avatar" required />
+            <span className="popup__input-error" id="url-avatar-error"></span>
+        </PopupWithForm>
+
     )
 }
