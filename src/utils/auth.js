@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'http://localhost:3000';
 
 const checkResponse = (res) => {
   if (res.ok) { return res.json() }
@@ -36,7 +36,7 @@ export const checkToken = (token) => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
+      'Authorization': `${token}`,
     }
   })
     .then((res) => {

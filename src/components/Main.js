@@ -19,7 +19,7 @@ export default function Main(props) {
                 <button type="button" className="profile__place-edit" onClick={props.onAddPlace}></button>
             </section>
             <section className="places">
-                {props.cards.map((item) => {
+                {props.cards.sort((a, b) => a.createdAt < b.createdAt ? 1:-1).map((item) => {
                     return (<Card key={item._id} card={item} onCardClick={props.onCardClick} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete} />)
                 })}
             </section>

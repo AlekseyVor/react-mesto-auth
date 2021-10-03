@@ -31,22 +31,22 @@ class Api {
     return Promise.reject(`Ошибка ${res.status}`)
   }
 
-  getUserInfo = () => {
-    return this._search(this._config.urlMe, this._config.methodGET, this._config.token)
+  getUserInfo = (token) => {
+    return this._search(this._config.urlMe, this._config.methodGET, token)
       .then(this._checkResponse)
 
   }
 
-  getInitialCards = () => {
-    return this._search(this._config.urlCards, this._config.methodGET, this._config.token)
+  getInitialCards = (token) => {
+    return this._search(this._config.urlCards, this._config.methodGET, token)
       .then(this._checkResponse);
   }
 
-  patchUserInfo = (userInfo) => {
+  patchUserInfo = (userInfo, token) => {
     return fetch(`${this._option.baseUrl}${this._config.urlMe}`, {
       method: `${this._config.methodPATCH}`,
       headers: {
-        authorization: `${this._config.token}`,
+        authorization: `${token}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -57,11 +57,11 @@ class Api {
       .then(this._checkResponse);
   }
 
-  postNewCard = (card) => {
+  postNewCard = (card, token) => {
     return fetch(`${this._option.baseUrl}${this._config.urlCards}`, {
       method: `${this._config.methodPOST}`,
       headers: {
-        authorization: `${this._config.token}`,
+        authorization: `${token}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -72,27 +72,27 @@ class Api {
       .then(this._checkResponse);
   }
 
-  deleteCard = (cardid) => {
-    return this._searchCardId(this._config.urlCards, this._config.methodDELETE, this._config.token, cardid)
+  deleteCard = (cardid, token) => {
+    return this._searchCardId(this._config.urlCards, this._config.methodDELETE, token, cardid)
       .then(this._checkResponse);
   }
 
-  updateLike = (cardid, status) => {
+  updateLike = (cardid, status, token) => {
     if (status) {
-      return this._searchCardId(this._config.urlLikes, this._config.methodPUT, this._config.token, cardid)
+      return this._searchCardId(this._config.urlLikes, this._config.methodPUT, token, cardid)
         .then(this._checkResponse);
     } else {
-      return this._searchCardId(this._config.urlLikes, this._config.methodDELETE, this._config.token, cardid)
+      return this._searchCardId(this._config.urlLikes, this._config.methodDELETE, token, cardid)
         .then(this._checkResponse);
     }
 
   }
 
-  patchUserAvatar = (avatar) => {
+  patchUserAvatar = (avatar, token) => {
     return fetch(`${this._option.baseUrl}${this._config.urlAvatar}`, {
       method: `${this._config.methodPATCH}`,
       headers: {
-        authorization: `${this._config.token}`,
+        authorization: `${token}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -104,7 +104,7 @@ class Api {
 }
 
 const api = new Api(config, {
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-25',
+  baseUrl: 'http://localhost:3000',
   method: '',
   headers: {
     authorization: config.token,

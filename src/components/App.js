@@ -32,29 +32,30 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [isRegisterOk, setIsRegisterOk] = React.useState(false);
   const [userEmail, setUserEmail] = React.useState('');
-  const [isLoading, setIsLoading] = React.useState(true)
+  const [isLoading, setIsLoading] = React.useState(true);
+  const token = localStorage.getItem('jwt');
 
   React.useEffect(() => {
     handleTokenCheck();
   }, [])
 
   React.useEffect(() => {
-    Promise.all([api.getInitialCards(), api.getUserInfo()])
+    if(token) {
+      Promise.all([api.getInitialCards(token), api.getUserInfo(token)])
       .then(([cards, user]) => {
         setCards(cards);
         setCurrentUser(user);
       })
       .catch((err) => { console.log(err) })
-  }, [])
-
-
+    }
+    
+  }, [token])
 
   function handleTokenCheck() {
-    if (localStorage.getItem('jwt')) {
-      const jwt = localStorage.getItem('jwt');
-      auth.checkToken(jwt)
+    if (token) {
+      auth.checkToken(token)
         .then((res) => {
-          setUserEmail(res.data.email);
+          setUserEmail(res.email);
           setLoggedIn(true);
           setIsLoading(false);
         })
@@ -89,7 +90,7 @@ function App() {
   }
 
   function handleUpdateUser(data) {
-    api.patchUserInfo(data)
+    api.patchUserInfo(data, token)
       .then((res) => {
         setCurrentUser(res);
         closeAllPopups();
@@ -98,7 +99,7 @@ function App() {
   }
 
   function handleUpdateAvatar(data) {
-    api.patchUserAvatar(data.avatar)
+    api.patchUserAvatar(data.avatar, token)
       .then((res) => {
         setCurrentUser(res);
         closeAllPopups();
@@ -108,10 +109,10 @@ function App() {
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.updateLike(card._id, !isLiked)
+    api.updateLike(card._id, !isLiked, token)
       .then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
       })
@@ -121,7 +122,7 @@ function App() {
   }
 
   function handleCardDelete(card) {
-    api.deleteCard(card._id)
+    api.deleteCard(card._id, token)
       .then(() => {
         setCards((state) => state.filter((item) => item._id !== card._id))
       })
@@ -131,7 +132,7 @@ function App() {
   }
 
   function handleAddPlace(card) {
-    api.postNewCard(card)
+    api.postNewCard(card, token)
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
@@ -158,7 +159,7 @@ function App() {
     auth.authorize(data.password, data.email)
       .then((res) => {
         if (res.hasOwnProperty('token')) {
-          localStorage.setItem('jwt', res.token);
+          localStorage.setItem('jwt', `Bearer ${res.token}`);
           setUserEmail(data.email);
           setLoggedIn(true);
           history.push('/');
@@ -166,7 +167,6 @@ function App() {
       }
       )
       .catch(err => console.log(err));
-
   }
 
   function handleExit() {
